@@ -70,7 +70,7 @@ data$df.CDR.concat <- test
 colnames(data)[1] <- "name"
 colnames(data)[2] <- "seq"
 
-filename<- paste(dir.out,"VL_CDR_concat",".fasta",sep="")
+filename<- paste(dir.out,"VL_CDR123_concat",".fasta",sep="")
 #function to write out fasta file
 write.fasta<-function(data, filename){
   fastaLines = c()
