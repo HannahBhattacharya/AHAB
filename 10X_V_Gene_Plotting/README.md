@@ -5,7 +5,8 @@ from 10X Genomics Loupe VDJ Browser as input and pulls VH or VL data from
 it (see filenames). VH family and gene plots are rendered using ggplot2
 (no ggplot knowledge required if you can live with how they're rendered).
 This way you can "gate" on subsets of interest and only look at corresponding
-BCRs.
+BCRs. Run in order (1_, 2_, 3_, etc.) but ensure you're choosing VH or Vlk 
+version accordingly.
 
 REQUISITE NEWBIE APOLOGY:
 I'm a total novice in R, feel free to make suggestions for streamlined code.
