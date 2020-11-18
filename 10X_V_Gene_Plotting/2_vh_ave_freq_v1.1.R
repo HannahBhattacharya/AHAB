@@ -43,10 +43,10 @@ vh.gene.list <- c("IGHV1-18", "IGHV1-2", "IGHV1-24", "IGHV1-3",
                 "IGHV3-48", "IGHV3-49", "IGHV3-53", "IGHV3-64", 
                 "IGHV3-64D", "IGHV3-66", "IGHV3-7", "IGHV3-72", 
                 "IGHV3-73", "IGHV3-74", "IGHV3/OR16-12", 
-                "IGHV3/OR16-13", "IGHV3/OR16-8", "IGHV4-28", 
-                "IGHV4-30-2", "IGHV4-31", "IGHV4-34", "IGHV4-39", 
-                "IGHV4-4", "IGHV4-59",  "IGHV4-61", "IGHV5-10-1",
-                "IGHV5-51", "IGHV6-1", "IGHV7-4-1", "IGHV7-81")
+                "IGHV4-28", "IGHV4-30-2", "IGHV4-31", "IGHV4-34", 
+                "IGHV4-39", "IGHV4-4", "IGHV4-59",  "IGHV4-61", 
+                "IGHV5-10-1", "IGHV5-51", "IGHV6-1", "IGHV7-4-1", 
+                "IGHV7-81")
 
 #This function calculates proportion of each VH gene
 #and each VH gene family and writes these out as CSV files
@@ -135,16 +135,16 @@ sum.vh.freq.make.csv <- function(file, the.dir) {
                    by.x = "vh.gene.list",
                    by.y = "single_call",
                    all.x = TRUE)
-  drops <- c("file.gene")
+  drops <- c("file.id")
   full.df <- full.df[ , !(names(full.df) %in% drops)]
   #changing column order
   full.df <- full.df[,c(2,1,3,4)]
   #changing column header names
-  colnames(full.df) [1:4] <- c("file.gene", "vh.gene", "count", "frequency")
+  colnames(full.df) [1:4] <- c("file.id", "vh.gene", "count", "frequency")
   
   #turning NA to 0 so averages calculate properly
   vh.gene.freq.df <- full.df %>%
-    complete(file.gene, nesting(vh.gene),
+    complete(file.id, nesting(vh.gene),
              fill = list(count = 0,
                          frequency = 0))
   
@@ -293,10 +293,10 @@ full.df <- merge(add.id.full.vh.gene.df, sum.file.vh.gene.df,
 drops <- c("file.gene")
 full.df <- full.df[ , !(names(full.df) %in% drops)]
 full.df <- full.df[,c(2,1,3,4)]
-colnames(full.df) [1:4] <- c("file.gene", "vh.gene", "count", "frequency")
+colnames(full.df) [1:4] <- c("file.id", "vh.gene", "count", "frequency")
 
 vh.gene.freq.df <- full.df %>%
-  complete(file.gene, nesting(vh.gene),
+  complete(file.id, nesting(vh.gene),
            fill = list(count = 0,
                        frequency = 0))
 
