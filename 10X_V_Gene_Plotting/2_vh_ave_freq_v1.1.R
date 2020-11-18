@@ -135,7 +135,7 @@ sum.vh.freq.make.csv <- function(file, the.dir) {
                    by.x = "vh.gene.list",
                    by.y = "single_call",
                    all.x = TRUE)
-  drops <- c("file.id")
+  drops <- c("file.gene")
   full.df <- full.df[ , !(names(full.df) %in% drops)]
   #changing column order
   full.df <- full.df[,c(2,1,3,4)]
