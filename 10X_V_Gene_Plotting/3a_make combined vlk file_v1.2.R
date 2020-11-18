@@ -40,7 +40,6 @@ file.list <- list.files(dir.in, pattern = "*vlk_fam_freq_sum",
                         full.names = TRUE)
 
 #this puts all the data into one larger dataframe containing all samples
-#this puts all the data into one larger dataframe containing all samples
 data.list <- lapply(file.list, read.csv)
 smaller.df <- subset(do.call(rbind, data.list), select = -c(X))
 
