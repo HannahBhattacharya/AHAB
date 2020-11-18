@@ -200,10 +200,10 @@ vh.gene.list <- c("IGHV1-18", "IGHV1-2", "IGHV1-24", "IGHV1-3",
                 "IGHV3-48", "IGHV3-49", "IGHV3-53", "IGHV3-64", 
                 "IGHV3-64D", "IGHV3-66", "IGHV3-7", "IGHV3-72", 
                 "IGHV3-73", "IGHV3-74", "IGHV3/OR16-12", 
-                "IGHV3/OR16-13", "IGHV3/OR16-8", "IGHV4-28", 
-                "IGHV4-30-2", "IGHV4-31", "IGHV4-34", "IGHV4-39", 
-                "IGHV4-4", "IGHV4-59",  "IGHV4-61", "IGHV5-10-1",
-                "IGHV5-51", "IGHV6-1", "IGHV7-4-1", "IGHV7-81")
+                "IGHV4-28", "IGHV4-30-2", "IGHV4-31", "IGHV4-34", 
+                "IGHV4-39", "IGHV4-4", "IGHV4-59",  "IGHV4-61", 
+                "IGHV5-10-1", "IGHV5-51", "IGHV6-1", "IGHV7-4-1", 
+                "IGHV7-81")
 
 #keep these calls here, it fails on select without them
 library(dplyr)
