@@ -1,3 +1,4 @@
+#Run the 1_vlk... Rscript first to generate the input files needed here.
 #This code takes output files from 1_vh_single_call_family Rscript
 #and collapses data for each sample to show counts and
 #proportions of VL or VK family calls and VL or VK gene ID calls

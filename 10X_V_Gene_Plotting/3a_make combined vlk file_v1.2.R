@@ -1,3 +1,4 @@
+#Run the 2_vlk... Rscript first to generate the input files needed here.
 #This script combines all files into single summary file
 #that includes VL/VK family proportion and counts per sample.
 #It also adds columns to use as grouping variables
@@ -43,8 +44,8 @@ file.list <- list.files(dir.in, pattern = "*vlk_fam_freq_sum",
 data.list <- lapply(file.list, read.csv)
 smaller.df <- subset(do.call(rbind, data.list), select = -c(X))
 
-##########NEED TO REPLACE SUBSET NAMES FOR YOUR SUBSET NAMES#############
-########E.G. REPLACE "all" AND "cd21low" ACCORDINGLY
+########## NEED TO REPLACE SUBSET NAMES FOR YOUR SUBSET NAMES #############
+######## E.G. REPLACE "all" AND "cd21low" ACCORDINGLY ##################
 #this adds subset group id column
 smaller.df$subset.group <- ifelse(grepl("all", smaller.df$file.id), 
                                   "all", "cd21low")
@@ -173,7 +174,13 @@ vlk.fam.wide.df <- smaller.df %>%
   #include this call or the output is a tbl, dataframe, and something else
   data.frame()
 
-#generating mean values by vlk.gene per group (B cell subset)
+######### RENAME SUBSET NAMES BELOW ACCORDINGLY FOR YOUR DATA ###########
+#I left my subset names because i thought it was better than 1 vs. 2
+#for you to follow what is happening and is also nice to have that 
+#defined in your output CSV files. You'll need to edit through the
+#end of this code.
+
+#Generating mean values by vlk.gene per group (B cell subset)
 #make sure it generates these correctly, if not, restart RStudio
 #this has been a common glitch for me.
 all.FDR.mean.freq <- vlk.fam.wide.df %>%

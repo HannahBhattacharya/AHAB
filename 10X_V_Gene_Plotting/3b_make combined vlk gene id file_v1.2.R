@@ -1,8 +1,12 @@
-#this script combines all files into single summary file
-#that includes VH gene ID proportion and counts per sample
-#it also adds columns to use as grouping variables
+#Run the 2_vlk... Rscript first to generate the input files needed here.
+#This script combines all files into single summary file
+#that includes VH gene ID proportion and counts per sample.
+#It also adds columns to use as grouping variables
 #in ggplot and removes groups by sample for which n<10 sequences
-#to avoid inappropriate skewing of the data 
+#to avoid inappropriate skewing of the data.
+
+#Things you may need to revise are marked:
+######ALL CAPS#########
 
 library(tidyverse)
 library(magrittr)
@@ -14,8 +18,10 @@ check.create.dir <- function(the.dir) {
     dir.create(the.dir, recursive = TRUE) }
 }
 
+######DEFINE DIR IN########
 #this is where files come from
 dir.in <- "~/desktop/10X_BCR_pipelines/output/vlk/freq_summary/"
+######DEFINE DIR OUT########
 #this is where output files go
 dir.out <- "~/desktop/10X_BCR_pipelines/output/vlk/graphs"
 directories <- c(dir.in, dir.out)
@@ -33,12 +39,16 @@ file.list
 data.list <- lapply(file.list, read.csv)
 smaller.df <- subset(do.call(rbind, data.list), select = -c(X))
 
+
+########## NEED TO REPLACE SUBSET NAMES FOR YOUR SUBSET NAMES #############
+######## E.G. REPLACE "all" AND "cd21low" ACCORDINGLY #####################
 #this adds subset group id column
 smaller.df$subset.group <- ifelse(grepl("all", smaller.df$file.id), "all", "cd21low")
 #if additional subset groups are present, could do the following:
 #smaller.df$subset.group <- ifelse(grepl("all", smaller.df$file.id), "all", 
  #                                 ifelse(grepl("cd21low", smaller.df$file.id), "cd21low", "other"))
 
+########### EDIT SAMPLE METADATA BELOW #######################
 #adding T1D vs. CTL and B cell subset grouping columns
 library(stringr)
 combined.vlk.df <- smaller.df %>%
@@ -147,7 +157,13 @@ vlk.gene.wide.df <- smaller.df %>%
   #include this call or the output is a tbl, dataframe, and something else
   data.frame()
 
-#generating mean values by vlk.gene per group (B cell subset)
+######### RENAME SUBSET NAMES BELOW ACCORDINGLY FOR YOUR DATA ###########
+#I left my subset names because i thought it was better than 1 vs. 2
+#for you to follow what is happening and is also nice to have that 
+#defined in your output CSV files. You'll need to edit through the
+#end of this code.
+
+#Generating mean values by vlk.gene per group (B cell subset)
 #keep dplyr call here, it was screwing up without it
 #watch to be sure these dataframes are made correctly
 #this part is glitchy for some reason

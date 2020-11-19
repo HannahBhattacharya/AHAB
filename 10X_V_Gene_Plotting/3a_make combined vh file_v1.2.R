@@ -1,3 +1,4 @@
+#Run the 2_vh... Rscript first to generate the input files needed here.
 #This script combines all files into single summary file
 #that includes VH family proportion and counts per sample.
 #It also adds columns to use as grouping variables
@@ -59,7 +60,7 @@ smaller.df$subset.group <- ifelse(grepl("all", smaller.df$file.id),
 #adding T1D vs. CTL and B cell subset grouping columns
 library(stringr)
 combined.vh.df <- smaller.df %>%
-  mutate(dx_group = case_when(
+  mutate(dx.group = case_when(
     #all
     smaller.df$file.id == "4025-RB-1_all_1" ~ "FDR",
     smaller.df$file.id == "4025-RB-1_all_2" ~ "T1D",
@@ -162,7 +163,13 @@ vh.fam.wide.df <- smaller.df %>%
   #include this call or the output is a tbl, dataframe, and something else
   data.frame()
 
-#generating mean values by vh_gene per group (B cell subset)
+######### RENAME SUBSET NAMES BELOW ACCORDINGLY FOR YOUR DATA ###########
+#I left my subset names because i thought it was better than 1 vs. 2
+#for you to follow what is happening and is also nice to have that 
+#defined in your output CSV files. You'll need to edit through the
+#end of this code.
+
+#Generating mean values by vh_gene per group (B cell subset)
 #keep dplyr call here, it was screwing up without it
 #library(dplyr)
 all.FDR.mean.freq <- vh.fam.wide.df %>%
