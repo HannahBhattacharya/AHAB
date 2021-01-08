@@ -14,7 +14,7 @@
 #returns corresponding amino acid sequence
 
 #3
-#Note, this feature is still under development
+#NOTE THIS FEATURE IS STILL UNDER DEVELOPMENT
 #It further searches for matches to a defined aa motif
 #and calculates those BCR matches as a % of the total BCRs
 #Each barcode becomes a separate row CSV output has 
@@ -110,6 +110,10 @@ data.list <- Map(cbind, data.list, sample_id = sample.names)
 #TO COMPARE? KEEP TWO GROUPS NAMED AS FDR OR T1D
 #OR EDIT ALL DOWNSTREAM VARIABLE NAMES IN CODE
 #define dx group based on order of samples in list
+#This example uses 6 lanes of 10X data that have
+#three hashed samples per lane (total n=18 samples)
+#YOU WILL HAVE TO EDIT DOWNSTREAM CODE A BIT
+#BASED ON HOW MANY LANES OF 10X DATA YOU HAVE. SORRY.
 disease <- c("FDR","T1D","T1D",
              "FDR", "FDR","T1D",
              "FDR","T1D","FDR",
@@ -193,8 +197,8 @@ lane4.df <- separate_rows(lane4.df, contig_ids, sep = ";")
 lane5.df <- separate_rows(lane5.df, contig_ids, sep = ";")
 lane6.df <- separate_rows(lane6.df, contig_ids, sep = ";")
 
-#filtering based on which heavy or light chain 
-#each cell expresses
+#filtering on IgH BCRs; 
+#YOU COULD EDIT THIS TO IGK or IGL INSTEAD
 lane1.vh <- select(filter(lane1.df, chain == "IGH"), c(1:length(lane1.df)))
 lane2.vh <- select(filter(lane2.df, chain == "IGH"), c(1:length(lane2.df)))
 lane3.vh <- select(filter(lane3.df, chain == "IGH"), c(1:length(lane3.df)))
@@ -253,7 +257,6 @@ vdj.file.list <- lapply(vdj.dir.in, phylotools::read.fasta)
 
 library(BiocGenerics)
 library(Biostrings)
-#library(seqinr)
 
 # This finds and translates longest open reading frame (ORF).
 # ATG omitted as a requirement since many BCR seqs may start past ATG;
