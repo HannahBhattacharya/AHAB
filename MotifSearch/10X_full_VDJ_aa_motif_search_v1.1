@@ -258,6 +258,7 @@ vdj.file.list <- lapply(vdj.dir.in, phylotools::read.fasta)
 
 library(BiocGenerics)
 library(Biostrings)
+library(seqinr)
 
 # This finds and translates longest open reading frame (ORF).
 # ATG omitted as a requirement since many BCR seqs may start past ATG;
