@@ -7,6 +7,7 @@
 #are pulled from the VDJ file. This pulls only the VH
 #sequences from that (easy to modify to other chains)
 
+
 #2
 #It generates a list of data frames that contain 
 #the barcode (contig_id) and nucleotide (nt) seq
@@ -414,3 +415,49 @@ for(i in seq_along(vdj.file.list)) {
   }
   return(vdj.file.list)
 }
+
+#Save RDS file so you don't have to run the above function
+#again if R crashes
+file.name <- paste(dir.out, "vdj_barcode_nt_aa2.rds", sep = "")
+saveRDS(vdj.file.list, 
+        file = file.name,
+        compress = FALSE)
+
+#start here and uncomment if you want to load this RDS in
+#from prior session
+#vdj.file.list <- readRDS(file=file.name)
+
+#confirm it's ok to axe these here
+rm(meta.data.df, vdj.df, i)
+
+#pattern matching
+aa.pattern <- "YGMDV"
+
+lane1.match <-vdj.file.list[[1]][grep(aa.pattern,
+                                      vdj.file.list[[1]]$aa.text), ]
+lane2.match <-vdj.file.list[[2]][grep(aa.pattern,
+                                      vdj.file.list[[2]]$aa.text), ]
+lane3.match <-vdj.file.list[[3]][grep(aa.pattern,
+                                      vdj.file.list[[3]]$aa.text), ]
+lane4.match <-vdj.file.list[[4]][grep(aa.pattern,
+                                      vdj.file.list[[4]]$aa.text), ]
+lane5.match <-vdj.file.list[[5]][grep(aa.pattern,
+                                      vdj.file.list[[5]]$aa.text), ]
+lane6.match <-vdj.file.list[[6]][grep(aa.pattern,
+                                      vdj.file.list[[6]]$aa.text), ]
+
+sample.list <- c("4025-RB-1", "4025-RB-2", "4025-RB-3", 
+                 "4025-RB-4", "4025-RB-5", "4025-RB-6")
+lane.list <- list(lane1.match, lane2.match, lane3.match,
+                  lane4.match, lane5.match, lane6.match)
+
+lane.list <- Map(cbind, lane.list, sample.id = sample.list)
+lane.df.1 <- lane.list[[1]]
+lane.df.2 <- lane.list[[2]]
+lane.df.3 <- lane.list[[3]]
+lane.df.4 <- lane.list[[4]]
+lane.df.5 <- lane.list[[5]]
+lane.df.6 <- lane.list[[6]]
+
+combined.lane.df <- rbind(lane.df.1, lane.df.2, lane.df.3,
+                          lane.df.4,lane.df.5, lane.df.6)
